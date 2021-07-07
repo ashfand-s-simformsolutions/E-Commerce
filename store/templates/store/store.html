@@ -1,0 +1,38 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="row">
+	    <div class="col">
+		    <div class="card card-body">
+
+			    <form method="get">
+				    {{myFilter.form}}
+
+		            <button class="btn btn-secondary" type="submit">Search</button>
+		        </form>
+
+		    </div>
+	    </div>
+
+    </div>
+    <br>
+
+	<div class="row" style="padding-top: 40px">
+		{% for product in products %}
+		<div class="card" style="width: 350px;">
+        <img src="{{ product.image_url|default_if_none:'#' }}" class="card-img-top" style="height: 200px" alt="...">
+        <hr>
+        <div class="card-body">
+           <h4 class="card-title">{{ product.name }}</h4>
+           <hr>
+           <h6><strong>Rs {{ product.price }}</strong></h6>
+           <hr>
+           <a style="border-radius: 10px;" data-product="{{product.id}}" data-action="add" href="" class="btn btn btn-secondary update-cart">Add to cart</a>
+           <a style="border-radius: 10px; margin: 10px" href="{% url 'description' product.id %}" class="btn btn-secondary">Details</a>
+        </div>
+    </div>
+		{% endfor %}
+		</div>
+<br><br><br><br><br><br><br><br><br><br>
+{% endblock content %}

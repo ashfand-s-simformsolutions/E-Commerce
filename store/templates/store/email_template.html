@@ -1,0 +1,13 @@
+Hey {{name}},
+
+your order has been confirmed
+order summary
+ {% for item in items %}
+
+{{ item.product.name }}
+Rs {{ item.product.price }}
+{{ item.quantity }}
+
+{% endfor %}
+
+Mohammad Ashfand

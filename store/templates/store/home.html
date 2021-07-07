@@ -1,0 +1,23 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row" style="padding-top: 40px">
+		{% for i in category %}
+		<div class="card" style="width: 350px;">
+            {% if i.category_image %}
+            <img src="{{ i.category_image.url }}" class="card-img-top" style="height: 200px" alt="...">
+            {% else %}
+            <img src="" class="card-img-top" style="height: 200px" alt="...">
+            {% endif %}
+            <hr>
+            <div class="card-body">
+                <h6 class="card-title">{{ i.category_name }}</h6>
+                <a style="border-radius: 10px;" href="{% url 'store' i.id %}" class="btn btn-secondary">View</a>
+            </div>
+        </div>
+		{% endfor %}
+    </div>
+</div>
+<br><br><br><br><br><br><br><br><br><br>
+{% endblock content %}

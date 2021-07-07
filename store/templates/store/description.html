@@ -1,0 +1,16 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+    {% for i in products %}
+    <h2>{{ i.name }}</h2>
+    <img class="des-img" src="{{ i.image_url|default_if_none:'#' }}"><br><br><br><hr>
+    <h4>Product Description</h4><hr>
+    {% if i.description %}
+        <p>{{ i.description }}</p>
+    {% else %}
+        <p>This product has no description</p>
+    {% endif  %}
+    {% endfor %}
+<br><br><br><br><br><br><br><br><br><br>
+{% endblock content %}

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+  <meta charset="UTF-8">
+
+  <title>E-Commerce</title>
+  <script type="text/javascript">
+    var user = '{{request.user}}'
+    function getToken(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+    var csrftoken = getToken('csrftoken');
+
+
+  </script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg" style="background-color: #a6a6a6;">
+    <div class="container-fluid">
+      <a class="navbar-brand hov" style="color: #595959; font-family: sans-serif;" href="{% url 'home' %}">E-Commerce</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        </ul>
+
+        <form class="form-inline" method="get" action="{% url 'search' %}">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search"
+            id="search">
+          <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Search</button>
+        </form>
+
+        <div class="form-inline my-2 my-lg-0">
+
+          <span style="color: #595959;">Hello, {{ request.user.customer }}</span>
+    
+          <a href="{% url 'logout' %}" class="btn btn-outline-secondary">Logout</a>
+
+          <a href="{% url 'cart' %}">
+            <img style="width: 50px; border-radius: 50%;" id="cart-icon" src="{% static 'images/shoppingcart.png' %}">
+          </a>
+          <p id="cart-total" style="background-color: #d9d9d9;border-radius: 50%; color: black; display: inline;">{{ cartItems }}</p>
+          <a href="{% url 'profile' %}">
+            <img style="width: 50px; margin:10px; border-radius: 50%;" src="{{ request.user.customer.profile_pic.url }}">
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container">
+    {% block content %}
+
+    {% endblock %}
+  </div>
+
+  <!-- Footer -->
+  <footer class="page-footer font-small elegant-color" style="background-color: #a6a6a6;">
+
+    <div class="color-primary">
+      <div class="container">
+
+        <!-- Grid row-->
+        <div class="row py-4 d-flex align-items-center">
+
+          <!-- Grid column -->
+          <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+            <h6 class="mb-0">Get connected with us on social networks!</h6>
+          </div>
+          <!-- Grid column -->
+
+          <!-- Grid column -->
+          <div class="col-md-6 col-lg-7 text-center text-md-right">
+
+            <!-- Facebook -->
+            <a class="fb-ic">
+              <i class="fab fa-facebook-f white-text mr-4"> </i>
+            </a>
+            <!-- Twitter -->
+            <a class="tw-ic">
+              <i class="fab fa-twitter white-text mr-4"> </i>
+            </a>
+            <!-- Google +-->
+            <a class="gplus-ic">
+              <i class="fab fa-google-plus-g white-text mr-4"> </i>
+            </a>
+            <!--Linkedin -->
+            <a class="li-ic">
+              <i class="fab fa-linkedin-in white-text mr-4"> </i>
+            </a>
+            <!--Instagram-->
+            <a class="ins-ic">
+              <i class="fab fa-instagram white-text"> </i>
+            </a>
+
+          </div>
+          
+        </div>
+       
+      </div>
+    </div>
+  
+    <div class="container text-center text-md-left pt-4 pt-md-5">
+      
+      <div class="row mt-1 mt-md-0 mb-4 mb-md-0">
+        
+        <div class="col-md-3 mx-auto mt-3 mt-md-0 mb-0 mb-md-4">
+         
+          <h5>About me</h5>
+          <hr class="color-primary mb-4 mt-0 d-inline-block mx-auto w-60">
+
+          <p class="foot-desc mb-0">Hello, this is an E-Commerce website</p>
+
+        </div>
+        
+        <hr class="clearfix w-100 d-md-none">
+        
+        <div class="col-md-3 mx-auto mt-3 mt-md-0 mb-0 mb-md-4">
+          
+          <h5>Products</h5>
+          <hr class="color-primary mb-4 mt-0 d-inline-block mx-auto w-60">
+
+          <ul class="list-unstyled foot-desc">
+            <li class="mb-2">
+              <a href="#!">Television</a>
+            </li>
+            <li class="mb-2">
+              <a href="#!">Refrigerators</a>
+            </li>
+            <li class="mb-2">
+              <a href="#!">Smart Phones</a>
+            </li>
+            <li class="mb-2">
+              <a href="#!">Clothing</a>
+            </li>
+          </ul>
+
+        </div>
+        
+        <hr class="clearfix w-100 d-md-none">
+        
+        <div class="col-md-3 mx-auto mt-3 mt-md-0 mb-0 mb-md-4">
+        
+          <h5>Useful links</h5>
+          <hr class="color-primary mb-4 mt-0 d-inline-block mx-auto w-60">
+
+          <ul class="list-unstyled foot-desc">
+            <li class="mb-2">
+              <a href="#!">Your Account</a>
+            </li>
+            <li class="mb-2">
+              <a href="#!">Become an Affiliate</a>
+            </li>
+            <li class="mb-2">
+              <a href="#!">Shipping Rates</a>
+            </li>
+            <li class="mb-2">
+              <a href="#!">Help</a>
+            </li>
+          </ul>
+
+        </div>
+        
+        <hr class="clearfix w-100 d-md-none">
+        
+        <div class="col-md-3 mx-auto mt-3 mt-md-0 mb-0 mb-md-4">
+          
+          <h5>Contacts</h5>
+          <hr class="color-primary mb-4 mt-0 d-inline-block mx-auto w-60">
+
+          <ul class="fa-ul foot-desc ml-4">
+            <li class="mb-2"><span class="fa-li"><i class="far fa-map"></i></span>Astodia Gate, Ahmedabad Gujarat
+            </li>
+            <li class="mb-2"><span class="fa-li"><i class="fas fa-phone-alt"></i></span>+91 7567786347</li>
+            <li class="mb-2"><span class="fa-li"><i class="far fa-envelope"></i></span>ashfand.s@simformsolutions.com</li>
+            <li><span class="fa-li"><i class="far fa-clock"></i></span>Monday - Friday: 10-17</li>
+          </ul>
+
+        </div>
+       
+      </div>
+      
+    </div>
+
+    
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+      <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+    </div>
+  </footer>
+
+
+  <!-- JavaScript Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="{% static 'js/cart.js' %}"></script>
+</body>
+
+</html>

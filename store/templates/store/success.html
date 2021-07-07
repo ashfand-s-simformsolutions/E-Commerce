@@ -1,0 +1,31 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+
+    <h5>Hi {{ name }} your order has been confirmed</h5>
+    <h5>Order Summary</h5>
+
+    {% for item in items %}
+		<div class="cart-row">
+			<div style="flex:2"><img class="row-image" src="{{ item.product.image.url }}"></div>
+			<div style="flex:2"><p>{{ item.product.name }}</p></div>
+			<div style="flex:1"><p>Rs {{ item.product.price }}</p></div>
+			<div style="flex:1"><p>{{ item.quantity }}</p></div>
+	    </div>
+    {% endfor %}
+
+	<h4>Amount recieved ${{amount}}!</h4>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock content %}
